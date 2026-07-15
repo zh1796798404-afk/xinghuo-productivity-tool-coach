@@ -2,58 +2,61 @@
 
 ## 兼容结论
 
-本 skill 的核心内容采用通用的 Agent Skill 目录结构：
+本 Skill 使用通用目录结构，Codex 和 Claude Code 可以共用核心文件：
 
 ```text
 productivity-tool-coach/
 ├── SKILL.md
-├── references/
-│   ├── question-framework.md
-│   ├── intake-and-attachments.md
-│   ├── visual-companion.md
-│   ├── github-reuse.md
-│   └── delivery-template.md
-└── agents/
-    └── openai.yaml
+├── agents/
+│   └── openai.yaml
+└── references/
+    ├── intake-and-attachments.md
+    ├── low-burden-conversation.md
+    ├── question-framework.md
+    ├── visual-companion.md
+    ├── github-reuse.md
+    └── delivery-template.md
 ```
-
-Codex 和 Claude Code 都可以读取 `SKILL.md` 以及其相对路径引用的参考文件，因此核心盘问流程、模式选择、视觉辅助、确认门和交付指导可以复用。
 
 ## 平台差异
 
 | 项目 | Codex | Claude Code |
 | --- | --- | --- |
-| 核心入口 | `SKILL.md` | `SKILL.md` |
+| 核心文件 | `SKILL.md` | `SKILL.md` |
 | 参考资料 | `references/` | `references/` |
 | 平台配置 | `agents/openai.yaml` | 忽略即可 |
-| 用户级目录 | `~/.agents/skills/`；当前环境兼容 `~/.codex/skills/` | `~/.claude/skills/` |
+| 用户级目录 | `~/.agents/skills/` 或 `~/.codex/skills/` | `~/.claude/skills/` |
 | 显式调用 | `$productivity-tool-coach` | `/productivity-tool-coach` |
-| 主要用途 | 盘问、方案、制作和交付 | 盘问、方案、制作和交付 |
+| 核心用途 | 盘问、方案、制作、验证、交付 | 盘问、方案、制作、验证、交付 |
 
-## 行为说明
+## 当前统一流程
 
-核心流程在两个平台上保持一致：
+1. 用户先用一句话描述痛点、重复工作或想改善的结果。
+2. Skill 复述理解并提出候选目标，不把工具形式直接定案。
+3. 必要时要求用户上传最小脱敏样例、截图或期望结果。
+4. 用户选择简易或深入盘问。
+5. 每轮只问一个会影响第一版的问题。
+6. 选项通常为2到3个，包含默认推荐、推荐原因和自由输入出口。
+7. 用户可以回复“按推荐继续”“我不确定”“暂时跳过”或“先给我初版方案”。
+8. 每3到4轮做一次小结；用户疲劳时先整理草案。
+9. 需求明确后，必要时搜索 GitHub 现成工具并评估适配度、许可证、维护状态和二开难度。
+10. 需求存在多个合理方向时，必要时提供2到3个视觉辅助方案。
+11. 输出制作方案，等待用户明确确认。
+12. 确认后制作、验证，并提供小白使用和分享说明。
 
-1. 先让用户描述痛点场景和想做的工具。
-2. 必要时明确要求用户拖拽文件或上传截图。
-3. 确认初始目标后，再选择深入或简易盘问模式。
-4. 通过一问一答明确需求。
-5. 每个选择题提供默认推荐、原因和自由输入出口。
-6. 必要时提供2到3个视觉辅助方向。
-7. 在适合时搜索 GitHub 现成项目，评估适配度和二次开发价值。
-8. 让用户决定直接使用、二次开发、参考借鉴或从零制作。
-9. 输出制作方案并等待用户明确确认。
-10. 确认后制作、验证、教学和提供分享方式。
+## 调用策略
 
-平台之间可能存在 skill 自动发现和隐式调用策略差异。为了避免长流程被误触发，建议用户主动调用。
+本 Skill 采用显式调用优先，避免普通咨询误触发长流程。Codex 的 `agents/openai.yaml` 已关闭隐式调用；Claude Code 的具体发现策略由本地版本决定，但可以通过显式命令稳定调用。
 
-## 本次验证边界
+## 验证边界
 
-本次已完成：
+已验证：
 
-- Codex skill 目录结构校验。
-- `SKILL.md` frontmatter 校验。
-- 参考文件相对路径校验。
-- 桌面压缩包完整性校验。
+- `SKILL.md` frontmatter 和目录结构。
+- 参考文件相对路径。
+- 本机 Codex 安装目录与源码一致。
+- Skill Creator 快速校验通过。
 
-当前电脑检测到 Codex CLI，但没有检测到 Claude Code CLI，因此 Claude Code 侧完成的是文件格式和目录结构兼容性核对，尚未进行本机运行时实测。拿到安装有 Claude Code 的环境后，建议执行一次显式调用和一次完整盘问流程作为最终验收。
+当前电脑没有 Claude Code CLI，因此 Claude Code 侧完成的是目录结构和文件兼容性核对，尚未完成本机运行时实测。
+
+本仓库当前未附加开源许可证。复制、修改、再分发或商业使用前，请先确认授权范围。
