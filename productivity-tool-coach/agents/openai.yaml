@@ -1,6 +1,6 @@
 interface:
   display_name: "星火提效工具制作教练"
-  short_description: "用低负担单题盘问，把业务痛点梳理成可使用、可分享的提效工具"
+  short_description: "用低负担单题梳理，把业务痛点做成可使用、可分享的提效工具"
   default_prompt: "使用 $productivity-tool-coach，帮我把一个模糊的提效想法梳理成可制作、可使用、可分享的工具。"
 policy:
   allow_implicit_invocation: false
