@@ -5,6 +5,8 @@
 ## 能做什么
 
 - 选择深入盘问或简易盘问模式。
+- 在选择盘问模式之前，先让用户描述痛点场景和想做的工具。
+- 根据需要明确要求用户拖拽文件、上传截图或提供脱敏样例。
 - 通过选择题、默认推荐和自由输入逐步明确需求。
 - 必要时提供2到3个视觉辅助方案。
 - 在从零制作之前，先搜索 GitHub 上是否有可复用的现成项目。
@@ -56,6 +58,7 @@ productivity-tool-coach/
 ├── agents/
 │   └── openai.yaml
 └── references/
+    ├── intake-and-attachments.md
     ├── question-framework.md
     ├── visual-companion.md
     ├── github-reuse.md
@@ -66,7 +69,7 @@ productivity-tool-coach/
 
 ## 当前版本
 
-v1.1.0
+v1.2.0
 
 当前版本默认建议用户主动调用，避免普通咨询误触发多轮盘问。
 
