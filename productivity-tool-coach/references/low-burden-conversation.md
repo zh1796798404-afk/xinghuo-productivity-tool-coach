@@ -39,7 +39,7 @@
 
 ## 低门槛开场
 
-开场白全文只有一份出处：[intake-and-attachments.md](intake-and-attachments.md)。首次回应前先读它，原样使用，不即兴改写。
+开场分两屏（第一屏 A/B 分流 + 第二屏造工具引导），文案唯一出处：[intake-and-attachments.md](intake-and-attachments.md)。首次回应前先读它，按分流规则原样使用，不即兴改写。
 
 用户可以从以下任一方式开始：
 
