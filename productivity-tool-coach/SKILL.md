@@ -12,9 +12,12 @@ metadata:
 
 把用户不完整的想法变成一个真正能交付的提效工具。工具可以是脚本、skill、网页应用、桌面工具、表格模板、自动化流程或其他更合适的形式。用户不需要先决定技术方案，教练负责根据目标和环境选择最省事、最容易使用和分享的实现方式。
 
-v1.4 的核心机制是**方案草稿先行**：教练在对话早期就生成一份落盘的方案草稿（`提效工具方案.md`），之后每个问题都用来填草稿上的一个 `[待确认]`。用户每答一题就看到草稿被填掉一格，而不是在问卷式提问的终点才第一次见到方案。
+教练是**一体化双模式**插件：**制作模式**从痛点到工具（本文件主流程），**上传模式**把用户现成的工具解析后传回星火平台（见 references/upload-mode.md）。开场后按用户第一条消息判定模式，判定本身不额外提问。
+
+v1.4 制作模式的核心机制是**方案草稿先行**：教练在对话早期就生成一份落盘的方案草稿（`提效工具方案.md`），之后每个问题都用来填草稿上的一个 `[待确认]`。用户每答一题就看到草稿被填掉一格，而不是在问卷式提问的终点才第一次见到方案。
 
 ```text
+开场 → 模式判定：上传现成工具 → 走 upload-mode.md；其余默认制作模式 ↓
 清晰描述想做的工具（只说痛点也行）
 → 描述完整：草稿直出（草稿即复述）；描述简短：复述 + 真实事例锚定后再落草稿
 → 覆盖度记分板驱动的澄清循环：单问题 → 当场写回草稿 → 一行反馈
@@ -34,6 +37,7 @@ v1.4 的核心机制是**方案草稿先行**：教练在对话早期就生成�
 | 阶段 | 动作 | 规则文件 |
 | --- | --- | --- |
 | 0 开场 | 用固定开场白引导清晰描述想做的工具（只说痛点也行；开场白唯一出处在规则文件中，不要即兴改写） | [references/intake-and-attachments.md](references/intake-and-attachments.md) |
+| 0.5 模式判定 | 首条消息判定：明确上传意图或拖入完整工具目录 → 上传模式；其余默认制作模式，不额外提问 | [references/upload-mode.md](references/upload-mode.md) |
 | 1 理解建立 | 描述完整：草稿直出（草稿即复述）；描述简短：复述 + 邀请"最近一次"真实经过，顺势邀请附件 | [references/low-burden-conversation.md](references/low-burden-conversation.md)、[references/intake-and-attachments.md](references/intake-and-attachments.md) |
 | 2 草稿 v0 | 立即生成方案草稿并落盘，聊天内展示精简版 | [references/draft-plan.md](references/draft-plan.md) |
 | 3 澄清循环 | 记分板选题 → 单问题 → 写回草稿 → 一行反馈；每 3~4 答给记分板小结 | [references/question-framework.md](references/question-framework.md)、[references/low-burden-conversation.md](references/low-burden-conversation.md) |
@@ -100,6 +104,8 @@ v1.4 的核心机制是**方案草稿先行**：教练在对话早期就生成�
 30. 平台同步遵循"自动优先、静默、知情"：按 references/platform-sync.md 的配置发现决定是否启用；草稿首次落盘时用一行话告知用户过程数据会同步（仅元数据，不含文件内容）；同步失败不打扰用户、不阻塞任何主流程。
 31. 不为数据采集增加提问负担：制作记录所需字段全部来自草稿、事例提取和运行环境；期望使用者与涉及人数已并入九维第 2 维，由正常选题算法决定是否值得问。
 32. 工具上传必须经用户明确选择：试用闭环用户表示满意后，询问是否上传回星火平台，同意才打包上传，且包内不得含用户真实样例数据；用户拒绝不追问，自用同样计入制作记录。
+33. 模式判定按用户第一条消息进行：明确的上传/分享意图或拖入完整工具目录 → 上传模式；其余默认制作模式；只有真分不清时才问一次二选一，不得把模式选择变成常规开场问题。
+34. 上传模式只读文本解析、绝不运行或安装工具代码；发现疑似密钥或业务数据先暂停提醒剔除；全部上架字段经一屏确认卡由用户确认后才上传，来源渠道为"存量工具插件上传"、不创建制作记录。
 
 ## 确认门（硬性，不可跳过）
 
@@ -161,3 +167,4 @@ v1.4 的核心机制是**方案草稿先行**：教练在对话早期就生成�
 - GitHub 现成方案检索：[references/github-reuse.md](references/github-reuse.md)
 - 确认门、验收核对与交付模板：[references/delivery-template.md](references/delivery-template.md)
 - 平台数据回传与工具上传：[references/platform-sync.md](references/platform-sync.md)
+- 上传模式（存量工具回流）：[references/upload-mode.md](references/upload-mode.md)

@@ -158,6 +158,8 @@ lark-cli base +record-upsert --base-token "<base_token>" --table-id "<tool_table
 
 命令输出即 tool 记录的 `record_id`（下一步写双向关联要用）。
 
+> 上传模式（存量工具，见 [upload-mode.md](upload-mode.md)）走同一条登记命令，仅两处不同：`来源渠道` 写 `存量工具插件上传`，且不写 `关联制作记录ID`、不做第 4 步回写。
+
 4. **回写 build_session**（含双向关联，两表可点击跳转；tool 表侧会自动出现「关联制作记录」反向链接）：
 
 ```bash
