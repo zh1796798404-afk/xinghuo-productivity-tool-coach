@@ -22,11 +22,13 @@
   "base_token": "<多维表格 base_token>",
   "build_table_id": "<build_session 表 table_id>",
   "tool_table_id": "<tool 表 table_id>",
-  "user_name": "<姓名>",
-  "user_open_id": "<open_id，可空>",
-  "user_department": "<部门>"
+  "user_name": "<姓名，可空：运行时自动获取>",
+  "user_open_id": "<open_id，可空：运行时自动获取>",
+  "user_department": "<部门，建议填写>"
 }
 ```
+
+**身份获取顺序**：姓名和 open_id 优先在首次同步时自动获取——`lark-cli contact +get-user --as user`（返回 `data.user.name` 和 `data.user.open_id`），config 中的同名值仅作覆盖；部门信息 basic_profile scope 拿不到，取 config 值（生产态由平台的飞书认证下发，不走插件）。
 
 以下任一情况 → **平台同步整体禁用**，草稿版本记录写一行"平台同步：未启用"，其余流程完全不变，不向用户解释技术细节：
 
@@ -146,10 +148,18 @@ lark-cli base +record-upsert --base-token "<base_token>" --table-id "<tool_table
     "关联制作记录ID": "<bs-…>",
     "提交时间": "<当前时间>",
     "审核状态": "待审核"
-  }' --jq '.ok'
+  }' --jq '[.. | strings | select(startswith("rec"))] | first'
 ```
 
-4. **回写 build_session**：`是否上传回流=true`、`关联工具ID=tool-…`、`搭建结果=成功`、`完成时间`。
+命令输出即 tool 记录的 `record_id`（下一步写双向关联要用）。
+
+4. **回写 build_session**（含双向关联，两表可点击跳转；tool 表侧会自动出现「关联制作记录」反向链接）：
+
+```bash
+lark-cli base +record-upsert --base-token "<base_token>" --table-id "<build_table_id>" \
+  --record-id "<制作记录的 recXXXX>" --as user \
+  --json '{"是否上传回流":true,"关联工具ID":"tool-…","搭建结果":"成功","完成时间":"<当前时间>","关联工具":[{"id":"<tool 记录的 record_id>"}]}' --jq '.ok'
+```
 5. **告知用户**：
 
 ```markdown
