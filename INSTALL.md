@@ -60,6 +60,24 @@ $productivity-tool-coach
 
 Claude Code 会读取 `SKILL.md` 和 `references/`。`SKILL.md` 已配置 `disable-model-invocation: true`，只响应显式调用，不会被普通对话误触发。`agents/openai.yaml` 是 Codex 的界面配置，不影响 Claude Code 的核心行为。
 
+## 平台同步配置（可选）
+
+配置后，教练会把制作过程元数据静默回传星火平台的制作记录表，并在工具完成后支持一键上传回平台。创建 `~/.spark-coach/config.json`：
+
+```json
+{
+  "platform_upload_url": "http://localhost:8788/api/upload",
+  "base_token": "<多维表格 base_token>",
+  "build_table_id": "<build_session 表 table_id>",
+  "tool_table_id": "<tool 表 table_id>",
+  "user_name": "<姓名>",
+  "user_open_id": "<open_id，可空>",
+  "user_department": "<部门>"
+}
+```
+
+前提：本机已安装并授权 `lark-cli`（需要 base:record:create / base:record:update scope）。**不配置完全不影响使用**——教练检测不到配置时自动禁用平台同步，其余流程不变。
+
 ## 使用前提
 
 - Skill 本身不需要额外的 Python 或 Node.js 依赖。

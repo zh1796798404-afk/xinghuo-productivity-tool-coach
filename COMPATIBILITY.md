@@ -16,7 +16,8 @@ productivity-tool-coach/
     ├── question-framework.md
     ├── visual-companion.md
     ├── github-reuse.md
-    └── delivery-template.md
+    ├── delivery-template.md
+    └── platform-sync.md
 ```
 
 ## 平台差异
@@ -47,6 +48,7 @@ productivity-tool-coach/
 11. 确认后制作；按"当…时，工具应…"的验收标准逐条核对并给出证据。
 12. 工具形式简单高效优先（图形界面优先、零依赖优先）；交付手册用"第一步/第二步"分步格式、零术语。
 13. 交付后进入试用与微调闭环：手动/自动测试可选（自动不替代上手），反馈微调直到用户明确满意；再次调用时走迭代短流程。
+14. 平台协同（本地配置存在时启用）：制作过程元数据静默同步星火平台制作记录；用户满意后可选择把工具打包上传回平台并登记工具表。
 
 ## 调用策略
 
